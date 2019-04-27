@@ -1,6 +1,6 @@
 /**
  * @file main.c
- * @author Sebastian Smoliński, Ernest Stachelski, Michał Fiłończuk
+ * @author ssmolinski9, Ernest Stachelski, Michał Fiłończuk
  * @brief 
  * @version 1.3
  * @date 2019-04-18
@@ -41,8 +41,8 @@ int search_for_directory(char*, DIR*, char*);
 int remove_directory(const char *);
 
 /**
- * sleep_time - określenie co ile ma się budzić demon (sek)
- * div_size - określenie jak duży musi być plik żeby użyć mapowania (MB)
+ * sleep_time - determines after what time the daemon should wake up (sec)
+ * div_size -determining how big the file must be to use the mapping (MB)
  * 
  */
 int sleep_time = 300;
@@ -52,7 +52,7 @@ char * source_path;
 char * dest_path; 
 
 /**
- * @brief Stworzenie szkieletu naszego demona
+ * @brief Creating the framework of our daemon
  * 
  */
 static void skeleton_daemon() {
@@ -94,9 +94,9 @@ static void skeleton_daemon() {
     }
 }
 /**
- * @brief Obsłużenie sygnału SIGUSR1. Dzięki temu możemy wymusić natychmiastowe wybudzenie demona i sprawdzenie podkatalogów.
+ * @brief - Handling the SIGUSR1 signal. Thanks to this we can force an immediate wake up of the daemon and check the subdirectories.
  * 
- * @param signum - służy do odebrania i zidentyfikowania sygnału
+ * @param signum - it is used to receive and identify the signal
  */
 void sig_handler(int signum) {
 	signal(SIGUSR1, sig_handler);
@@ -208,18 +208,18 @@ int check_arguments(int argc, char **argv) {
 	return ARGUMENTS_OK; 
 }
 /**
- * @brief Kopiowanie i usuwanie plików znajdujących się w folderze
+ * @brief Copy or delete files in a folder
  *
- * Na początku zostaje sprawdzenie czy zachodzi potrzeba skopiowania pliku przy pomocy metody searcc_for_copy.
- * Jeżeli nie znajdzie w folderze docelowym pliku rozpocznie się kopiowanie.
- * Następuje sprawdzenie jakim sposobem kopiować przy pomocy metody compare_size i wywołanie metody copy_normal lub copy_with_mapping.
- * Przy znalezieniu podfolderu, tworzymy podfolder w ścieżce docelowej i z nowymi parametrami katalogów wywołujemy scan_directory.
- * Następnie sprawadzamy czy są jakieś pliki w folderze docelowym, których nie ma w żródłowym przy pomocy metody search_for_delete.
- * Jeżeli znajdziemy taki plik zostanie on usunięty.
- * Jeżeli znajdziemy taki folder to zostaje on usunięty przy pomocy metody remove_directory.
+ * At the beginning it is checked if you need to copy the file using the searcc_for_copy method.
+ * If it does not find the file in the destination folder, copying will start.
+ * It is checked how to copy using the compare_size method and calling the copy_normal or copy_with_mapping methods.
+ * When you find a subfolder, create a subfolder in the destination path and with new directory parameters, call scan_directory.
+ * Next, we check if there are any files in the destination folder that are not in the source using the search_for_delete method.
+ * If we find such a file it will be deleted.
+ * If we find such a folder, it is removed using the remove_directory method.
  * 
- * @param src - przyjmuje ścieżkę bezwzględną katalogu źródłowego
- * @param dst - przyjmuje ścieżkę bezwzględną katalogu docelowego
+ * @param src -  the absolute path of the source directory
+ * @param dst -  the absolute path of the destinaction directory
  */
 void scan_directory(char * src, char * dst) {
 	DIR *source_dir = opendir(src);
@@ -276,12 +276,12 @@ void scan_directory(char * src, char * dst) {
 	closedir(dest_dir);
 }
 /**
- * @brief Szukanie pliku do kopiowania o podanej nazwie w podanym folderze. 
+ * @brief Finds a file to copy with the given name in the specified folder. 
  * 
- * @param file_name - nazwa pliku
+ * @param file_name - file name
  * @param directory - folder
- * @param actual_directory - ścieżka folderu
- * @return int - komunikaty informujące czy plik jest niedostępny, jest folderem, ma być zignorowany czy kopiowany
+ * @param actual_directory - path to the folder
+ * @return int - messages informing whether the file is unavailable, is a folder, should be ignored or copied
  */
 int search_for_copy(char* file_name, DIR* directory, char * actual_directory) {
 	char * full_path = create_full_path(actual_directory, file_name); 
@@ -325,12 +325,12 @@ int search_for_copy(char* file_name, DIR* directory, char * actual_directory) {
 	return FILE_SHOULD_BE_COPIED;
 }
 /**
- * @brief Szukanie pliku do kopiowania o podanej nazwie w podanym folderze
+ * @brief Finds a file to copy with the given name in the specified folder
  * 
- * @param file_name - nazwa pliku 
+ * @param file_name - file name 
  * @param directory - folder
- * @param actual_directory - ścieżka folderu
- * @return int - komunikaty informujšce czy plik jest niedostępny, jest folderem, ma być zignorowany czy usuwany
+ * @param actual_directory - path to folder
+ * @return int - message informing that the file is unavailable, the file is a folder or the file should be ignored/deleted
  */
 int search_for_delete(char* file_name, DIR* directory, char * actual_directory) {
 	char * full_path = create_full_path(actual_directory, file_name); 
@@ -367,12 +367,12 @@ int search_for_delete(char* file_name, DIR* directory, char * actual_directory) 
 }
 
 /**
- * @brief Szukanie folderu do usunięcia o podanej nazwie w podanym folderze
+ * @brief Finds a file to delete with the given name in the specified folder
  * 
- * @param file_name - nazwa pliku 
+ * @param file_name - file name
  * @param directory - folder
- * @param actual_directory - cieżka folderu
- * @return int - komunikaty informujšce czy plik jest niedostępny, jest folderem, ma być zignorowany czy usuwany
+ * @param actual_directory - path to folder
+ * @return int - message informing that the file is unavailable, the file is a folder or the file should be ignored/deleted
  */
 int search_for_directory(char* file_name, DIR* directory, char * actual_directory) {
 	char * full_path = create_full_path(actual_directory, file_name); 
@@ -393,9 +393,9 @@ int search_for_directory(char* file_name, DIR* directory, char * actual_director
 }
 
 /**
- * @brief usuwanie folderu
+ * @brief folder removal
  * 
- * @param path - ścieżka do folderu
+ * @param path - path to folder
  */
 int remove_directory(const char *path) {
    DIR *d = opendir(path);
