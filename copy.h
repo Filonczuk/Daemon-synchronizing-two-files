@@ -1,6 +1,6 @@
 /**
  * @file copy.h
- * @brief moduł zawiera narzędzia służące do kopiowania plików
+ * @brief The module contains tools for copying files
  * @version 1.3
  * @date 2019-04-18
  * 
@@ -17,19 +17,19 @@
 #include <fcntl.h>
 #include <sys/mman.h>
 /**
- * @brief funkcja kopiująca plik przy pomocy wywołań systemowych: read/write. Przyjmuje liczbę argumentów oraz wskaźnik na tablicę w której przechowywane są informacje o
- * ścieżce do pliku źródłowego, docelowego oraz rozmiarze bufra do wczytywania i zapisywania danych.
+ * @brief function copies the file using system calls: read / write. On input it gets the number of arguments and pointer on the table which contains information about
+ * path to source file, path to destination file and buffer size to load and save data.
  * 
  * 
- * @return int zwraca 0 w przypadku pomyślnego przekopiowania pliku oraz -1 w przypadku błędu.
+ * @return int returns 0 if the file was successfully copied and -1 if the error occurred
  */
 int copy_normal(int, char **);
 /**
- * @brief funkcja kopiująca plik przy pomocy wywołań systemowych mmap/write. Przyjmuje liczbę argumentów oraz wskaźnik na tablicę w której przechowywane są informacje o
- * ścieżce do pliku źródłowego, docelowego oraz rozmiarze bufra do wczytywania i zapisywania danych.
+ * @brief function copies the file using system calls: mmap / write. On input it gets the number of arguments and pointer on the table which contains information about
+ * path to source file, path to destination file and buffer size to load and save data.
  * 
  * 
- * @return int zwraca 0 w przypadku pomyślnego przekopiowania pliku oraz -1 w przypadku błędu.
+ * @return int returns 0 if the file was successfully copied and -1 if the error occurred
  */
 int copy_with_mapping(int, char **);
 
