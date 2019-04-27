@@ -1,6 +1,6 @@
 /**
  * @file fopr.h
- * @brief moduł służy do przeprowadzania różnych operacji na plikach 
+ * @brief module for performing various file operations
  * @version 1.3
  * @date 2019-04-18
  * 
@@ -21,22 +21,23 @@
 #include <unistd.h>
 
 /**
- * @brief Tworzy pełną ścieżkę do pliku.
- * Przyjmuje jako pierwszy parametr ścieżkę do katalogu z plikiem w postaci tablicy znaków oraz jako drugi parametr przyjmuje nazwę pliku.
- * 
- * @return char* zwraca pełną ścieżkę do pliku.
+ * @brief Creates the full path to the file.
+ * On input as the first parameter the function gets the path to the directory with the 
+ * file as a character table and as the second parameter it gets the file name.
+ * @return char* returns the full directory path
  */
 char * create_full_path(char*, char*);
 /**
- * @brief Funkcja sprawdza czy plik o nazwie podanej przez tablicę znaków jest zwykłym plikiem.
+ * @brief The function checks if the file with the given name is a regular file.
  * 
- * @return int zwraca wartość niezerową jeżeli plik jest zwykłym plikiem.
+ * @return int returns a non-zero value if the file is a regular file.
  */
 int is_regular_file(const char *);
 /**
- * @brief Funkcja sprawdza czy plik o nazwie podanej przez tablicę znaków jest katalogiem.
+ * @brief The function checks if the file with the given name is a directory.
  * 
- * @return int zwraca wartość niezerową jeżeli plik jest katalogiem.
+ * @return int returns a non-zero value if the file is a directory.
+
  */
 int is_directory(const char *);
 
