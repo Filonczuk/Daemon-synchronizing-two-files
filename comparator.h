@@ -1,6 +1,6 @@
 /**
  * @file comparator.h
- * @brief Moduł zawiera narzędzia do porównywania plików.
+ * @brief The module contains tools for comparing files.
  * @version 1.3
  * @date 2019-04-18
  * 
@@ -21,20 +21,20 @@
 #include <unistd.h>
 
 /**
- * @brief Funkcja porównuje czas modyfikacji dwóch plików określonych przez ich ścieżkę bezwzględną przechowywaną w tablicach znaków.
+ * @brief The function compares the modification time of two files specified by their absolute path stored in character tables.
  * 
- * @param p1 plik źródłowy
- * @param p2 plik docelowy
- * @return int zwraca 1 jeżeli data modyfikacji pliku źródłowego jest późniejsza niz data modyfikacji pliku docelowego.
- * Zwraca 0 w pozostałych przypadkach.
+ * @param p1 source file
+ * @param p2 destination file
+ * @return int - returns 1 if the modification date of the source file is later than the modification date of the target file.
+ * Returns 0 in other cases.
  */
 int compare_mtime(char* p1, char* p2);
 /**
- * @brief Funkcja sprawdza czy rozmiar pliku podany w GB jest większy od wartości ustalonej przez zmienną div_size
+ * @brief The function checks if the file size given in GB is greater than the value determined by the div_size variable
  * 
- * @param p1 tablica znaków zawierająca pełną ścieżkę do pliku
- * @param div_size ustalona maksymalna wielkość pliku podana w GB
- * @return int zwraca 1 jeżeli rozmiar pliku jest większy od ustalonej wartości lub 0 w pozostałych przypadkach
+ * @param p1 character table containing the full path to the file
+ * @param div_size fixed maximum file size given in GB
+ * @return int returns 1 if the file size is greater than the specified value or 0 in other cases
  */
 int compare_size(char * p1, int div_size);
 
